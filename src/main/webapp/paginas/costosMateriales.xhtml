@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"      
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions" >
+    <body>
+        <div>costo Material</div>
+        <p:dataTable var="producto" value="#{fujoCajaContoroller.listaProductos}" 
+                     reflow="true"
+                     editable="true"
+                     style="margin-top:20px">
+            <f:facet name="header">
+                Precio de Productos
+            </f:facet>
+            <p:column headerText="Nombre">
+                <h:outputText value="#{producto.nombre}" />
+            </p:column>
+
+            <p:column headerText="Patas (4)">
+                <p:cellEditor>
+                    <f:facet name="output"><h:outputText value="#{producto.costoPata}" /></f:facet>
+                    <f:facet name="input"><p:inputText id="modelInput" value="#{producto.costoPata}" style="width:100%"/></f:facet>
+                </p:cellEditor>
+            </p:column>
+
+            <p:column headerText="Asiento (1)">
+                <h:outputText value="#{producto.costoAsiento}" />
+            </p:column>
+
+            <p:column headerText="Respaldar (1)">
+                <h:outputText value="#{producto.costoRespaldar}" />
+            </p:column>
+            <p:column headerText="Tabla (1)">
+                <h:outputText value="#{producto.costoTabla}" />
+            </p:column>
+            <p:column headerText="Estructura (1)">
+                <h:outputText value="#{producto.costoEstructura}" />
+            </p:column>
+            <p:column headerText="Pintura (1)">
+                <h:outputText value="#{producto.costoPintura}" />
+            </p:column>
+            <p:column headerText="Pintado">
+                <h:outputText value="#{producto.costoPintado}" />
+            </p:column>
+            <p:column headerText="Armado">
+                <h:outputText value="#{producto.costoArmado}" />
+            </p:column>
+            <p:column style="width:32px">
+                <p:rowEditor />
+            </p:column>
+        </p:dataTable>
+    </body>              
+</ui:composition>
