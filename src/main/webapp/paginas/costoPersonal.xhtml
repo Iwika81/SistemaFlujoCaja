@@ -6,7 +6,59 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:pe="http://primefaces.org/ui/extensions" >
-    <body>
-        <div>costo Personal</div>
-    </body>               
+
+    <h2>Costos Indirectos- Personal</h2>
+    <div class="ui-fluid">
+        <p:dataTable var="trabajador" value="#{fujoCajaController.listaTrabajadores}" 
+                     reflow="true"
+                     editable="true"
+                     style="margin-top:20px">
+            <f:facet name="header">
+                Lista de Personal
+            </f:facet>
+            <p:ajax event="rowEdit" listener="#{fujoCajaController.onRowEditTrabajador}" update="grow-flujoCaja" />
+            <p:ajax event="rowEditCancel" listener="#{fujoCajaController.onRowCancelTrabajador}" update="grow-flujoCaja" />
+
+            <p:column headerText="Id">
+                <h:outputText value="#{trabajador.id}" />
+            </p:column>
+
+            <p:column headerText="Nombres">
+                <p:cellEditor>
+                    <f:facet name="output"><h:outputText value="#{trabajador.nombres}" /></f:facet>
+                    <f:facet name="input"><p:inputText id="input-nombres" value="#{trabajador.nombres}" style="width:100%"/></f:facet>
+                </p:cellEditor>
+            </p:column>
+
+            <p:column headerText="Ape. Paterno">
+                <p:cellEditor>
+                    <f:facet name="output"><h:outputText value="#{trabajador.apellidoPaterno}" /></f:facet>
+                    <f:facet name="input"><p:inputText id="input-aPaterno" value="#{trabajador.apellidoPaterno}" style="width:100%"/></f:facet>
+                </p:cellEditor>
+            </p:column>
+
+            <p:column headerText="Ape. Materno">
+                <p:cellEditor>
+                    <f:facet name="output"><h:outputText value="#{trabajador.apellidoMaterno}" /></f:facet>
+                    <f:facet name="input"><p:inputText id="input-aMaterno" value="#{trabajador.apellidoMaterno}" style="width:100%"/></f:facet>
+                </p:cellEditor>
+            </p:column>
+            <p:column headerText="Cargo">
+                <p:cellEditor>
+                    <f:facet name="output"><h:outputText value="#{trabajador.cargo.nombre}" /></f:facet>
+                    <f:facet name="input"><p:inputText id="input-cargo" value="#{trabajador.cargo.nombre}" style="width:100%"/></f:facet>
+                </p:cellEditor>
+            </p:column>
+            <p:column headerText="Sueldo">
+                <p:cellEditor>
+                    <f:facet name="output"><h:outputText value="#{trabajador.cargo.sueldo}" /></f:facet>
+                    <f:facet name="input"><p:inputText id="input-sueldo" value="#{trabajador.cargo.sueldo}" style="width:100%"/></f:facet>
+                </p:cellEditor>
+            </p:column>
+
+            <p:column style="width:32px">
+                <p:rowEditor />
+            </p:column>
+        </p:dataTable>
+    </div>          
 </ui:composition>

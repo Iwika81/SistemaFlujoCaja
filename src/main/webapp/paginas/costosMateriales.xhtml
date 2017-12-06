@@ -6,15 +6,19 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:pe="http://primefaces.org/ui/extensions" >
-    <body>
-        <div>costo Material</div>
-        <p:dataTable var="producto" value="#{fujoCajaContoroller.listaProductos}" 
+
+    <div class="ui-fluid">
+        <h2>Costos Directos- Material</h2>
+        <p:dataTable var="producto" value="#{fujoCajaController.listaProductos}" 
                      reflow="true"
                      editable="true"
                      style="margin-top:20px">
             <f:facet name="header">
                 Precio de Productos
             </f:facet>
+            <p:ajax event="rowEdit" listener="#{fujoCajaController.onRowEdit}" update="grow-flujoCaja" />
+            <p:ajax event="rowEditCancel" listener="#{fujoCajaController.onRowCancel}" update="grow-flujoCaja" />
+
             <p:column headerText="Nombre">
                 <h:outputText value="#{producto.nombre}" />
             </p:column>
@@ -22,35 +26,58 @@
             <p:column headerText="Patas (4)">
                 <p:cellEditor>
                     <f:facet name="output"><h:outputText value="#{producto.costoPata}" /></f:facet>
-                    <f:facet name="input"><p:inputText id="modelInput" value="#{producto.costoPata}" style="width:100%"/></f:facet>
+                    <f:facet name="input"><p:inputText id="input-patas" value="#{producto.costoPata}" style="width:100%"/></f:facet>
                 </p:cellEditor>
             </p:column>
 
             <p:column headerText="Asiento (1)">
-                <h:outputText value="#{producto.costoAsiento}" />
+                <p:cellEditor>
+                    <f:facet name="output"><h:outputText value="#{producto.costoAsiento}" /></f:facet>
+                    <f:facet name="input"><p:inputText id="input-asiento" value="#{producto.costoAsiento}" style="width:100%"/></f:facet>
+                </p:cellEditor>
             </p:column>
 
             <p:column headerText="Respaldar (1)">
-                <h:outputText value="#{producto.costoRespaldar}" />
+                <p:cellEditor>
+                    <f:facet name="output"><h:outputText value="#{producto.costoRespaldar}" /></f:facet>
+                    <f:facet name="input"><p:inputText id="input-respaldar" value="#{producto.costoRespaldar}" style="width:100%"/></f:facet>
+                </p:cellEditor>
             </p:column>
             <p:column headerText="Tabla (1)">
-                <h:outputText value="#{producto.costoTabla}" />
+                <p:cellEditor>
+                    <f:facet name="output"><h:outputText value="#{producto.costoTabla}" /></f:facet>
+                    <f:facet name="input"><p:inputText id="input-tabla" value="#{producto.costoTabla}" style="width:100%"/></f:facet>
+                </p:cellEditor>
             </p:column>
             <p:column headerText="Estructura (1)">
-                <h:outputText value="#{producto.costoEstructura}" />
+                <p:cellEditor>
+                    <f:facet name="output"><h:outputText value="#{producto.costoEstructura}" /></f:facet>
+                    <f:facet name="input"><p:inputText id="input-estructura" value="#{producto.costoEstructura}" style="width:100%"/></f:facet>
+                </p:cellEditor>
             </p:column>
             <p:column headerText="Pintura (1)">
-                <h:outputText value="#{producto.costoPintura}" />
+                <p:cellEditor>
+                    <f:facet name="output"><h:outputText value="#{producto.costoPintura}" /></f:facet>
+                    <f:facet name="input"><p:inputText id="input-pintura" value="#{producto.costoPintura}" style="width:100%"/></f:facet>
+                </p:cellEditor>
             </p:column>
             <p:column headerText="Pintado">
-                <h:outputText value="#{producto.costoPintado}" />
+                <p:cellEditor>
+                    <f:facet name="output"><h:outputText value="#{producto.costoPintado}" /></f:facet>
+                    <f:facet name="input"><p:inputText id="input-pintado" value="#{producto.costoPintado}" style="width:100%"/></f:facet>
+                </p:cellEditor>
             </p:column>
             <p:column headerText="Armado">
-                <h:outputText value="#{producto.costoArmado}" />
+                <p:cellEditor>
+                    <f:facet name="output"><h:outputText value="#{producto.costoArmado}" /></f:facet>
+                    <f:facet name="input"><p:inputText id="input-armado" value="#{producto.costoArmado}" style="width:100%"/></f:facet>
+                </p:cellEditor>
             </p:column>
             <p:column style="width:32px">
                 <p:rowEditor />
             </p:column>
         </p:dataTable>
-    </body>              
+        <p:commandButton id="btn-agregarProducto" value="Agregar nueva Silla" icon="fa fa-edit" type="button"/>
+    </div>
+
 </ui:composition>

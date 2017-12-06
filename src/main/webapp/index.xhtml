@@ -13,7 +13,7 @@
     </h:head>
     <h:body>
         <p:growl id="grow-flujoCaja" showDetail="true" />
-        <h3> #{fujoCajaContoroller.nombre}</h3>
+        <h3> #{fujoCajaController.nombre}</h3>
 
 
         <h:form id="form_FlujoCaja">
@@ -22,15 +22,15 @@
                     <p:menu id="menu">
                         <p:submenu label="Menu">
                             <p:menuitem value="Costos Directos" 
-                                        actionListener="#{fujoCajaContoroller.openCostoMaterial()}" 
+                                        actionListener="#{fujoCajaController.openCostoMaterial()}" 
                                         update="grow-flujoCaja,
                                         form_FlujoCaja:body"  />
                             <p:menuitem value="Costos Personal"
-                                        actionListener="#{fujoCajaContoroller.openCostoPersonal()}" 
+                                        actionListener="#{fujoCajaController.openCostoPersonal()}" 
                                         update="grow-flujoCaja,
                                         form_FlujoCaja:body" />
                             <p:menuitem value="Generar  FLujo" 
-                                        actionListener="#{fujoCajaContoroller.openGenerarFLujo()}" 
+                                        actionListener="#{fujoCajaController.openGenerarFLujo()}" 
                                         update="grow-flujoCaja,
                                         form_FlujoCaja:body"/>
                         </p:submenu>
@@ -40,7 +40,7 @@
                     <div class="ui-g">
                         <div class="ui-g-12 ui-md-12">
                             <p:panel id="body" styleClass="ui-noborder">
-                                <ui:include src="#{fujoCajaContoroller.body}" /> 
+                                <ui:include src="#{fujoCajaController.body}" /> 
                             </p:panel>
                         </div>                        
                     </div>
