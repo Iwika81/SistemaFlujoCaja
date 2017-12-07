@@ -29,7 +29,7 @@
                                         actionListener="#{fujoCajaController.openCostoPersonal()}" 
                                         update="grow-flujoCaja,
                                         form_FlujoCaja:body" />
-                            <p:menuitem value="Generar  FLujo" 
+                            <p:menuitem value="Generar  Flujo de Caja" 
                                         actionListener="#{fujoCajaController.openGenerarFLujo()}" 
                                         update="grow-flujoCaja,
                                         form_FlujoCaja:body"/>
@@ -47,6 +47,7 @@
                 </div>         
             </div>
         </h:form>
+        <ui:include  src="paginas/dialogo-generarFlujo.xhtml"/>
     </h:body>
 </html>
 

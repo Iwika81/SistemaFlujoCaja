@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"      
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                >
+    <p:dialog id="dialog-generarFlujoCaja" closeOnEscape="true"
+              widgetVar="widgetvar-generarFlujoCaja"
+              modal="true"
+              draggable="false"
+              position="top"
+              resizable="false" 
+              appendTo="@(body)"
+              header="Generar flujo de caja" width="900px"
+              >
+        <h:form id="form-generarFlujoCaja">
+            <p:repeat value="#{fujoCajaController.listaProductos}" var="producto">
+                <div class="ui-g">
+                    <div class="ui-g-12">
+                        <p:outputLabel value="${producto.nombre}"/>
+                    </div>
+                    <div class="ui-g-6">
+                        <p:outputLabel for="input-cantidad" value="Cantidad de Sillas vendidas"/>
+                    </div>
+                    <div class="ui-g-6">
+                        <p:inputText id="input-cantidad" value="#{producto.cantidad}"/>
+                    </div>
+                    <div class="ui-g-6">
+                        <p:outputLabel for="input-precio" value="Precio de las Sillas vendidas"/>
+                    </div>
+                    <div class="ui-g-6">
+                        <p:inputText id="input-precio" value="#{producto.precio}"/>
+                    </div>
+                </div>
+            </p:repeat>
+            <div style="text-align: right">
+                <p:commandButton id="button-generarFlujo"
+                                 value="Generar Flujo"
+                                 actionListener="#{fujoCajaController.generarFlujo()}"
+                                 update="grow-flujoCaja,
+                                 form_FlujoCaja:body"
+                                 >
+                </p:commandButton>
+                <p:commandButton id="button-salir_acta_inspeccion" 
+                                 value="Salir"
+                                 actionListener="#{fujoCajaController.closeGenerarFlujo()}"
+                                 immediate="true"
+                                 update="grow-flujoCaja"
+                                 />
+            </div>          
+        </h:form>
+    </p:dialog>
+</ui:composition>
+

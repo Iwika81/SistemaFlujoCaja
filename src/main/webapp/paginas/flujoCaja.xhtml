@@ -6,7 +6,24 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:pe="http://primefaces.org/ui/extensions" >
-    <body>
-        <div>Flujo Caja</div>
-    </body>              
+    <h3 style="margin-top: 0">Flujo de Caja</h3>
+
+    <div class="ui-fluid">
+        <p:dataGrid var="flujo"
+                    value="#{fujoCajaController.fujoCajas}" layout="grid"
+                    columns="12">
+            <div class="ui-g-12">
+                <h:outputText value="#{flujo.mes}" />
+            </div>
+            <div class="ui-g-12">
+                <h:outputText value="#{flujo.calcularTotalIngreso()}" />
+            </div>
+            <div class="ui-g-12">
+                <h:outputText value="#{flujo.calcularCostoTotalMateriales()}" />
+            </div>
+            <div class="ui-g-12">                
+                <h:outputText value="#{flujo.calcularCostoTotalManoObra()}" />
+            </div>
+        </p:dataGrid>
+    </div>
 </ui:composition>

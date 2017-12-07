@@ -2,6 +2,8 @@ package com.cajaflujo.systemafujocaja;
 
 import com.cajaflujo.systemafujocaja.modell.Administrativo;
 import com.cajaflujo.systemafujocaja.modell.Cargo;
+import com.cajaflujo.systemafujocaja.modell.FlujoCaja;
+import com.cajaflujo.systemafujocaja.modell.FlujoCaja.Mes;
 import com.cajaflujo.systemafujocaja.modell.Producto;
 import com.cajaflujo.systemafujocaja.modell.Trabajador;
 import java.io.Serializable;
@@ -14,6 +16,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import org.primefaces.context.RequestContext;
 import org.primefaces.event.RowEditEvent;
 
 /**
@@ -25,11 +28,17 @@ import org.primefaces.event.RowEditEvent;
 public class FujoCajaController implements Serializable {
 
     private static final Logger LOGGER = Logger.getLogger(FujoCajaController.class.getName());
+    private static final String OPEN_MODAL_GENERAR_FLUJOCAJA
+            = "PF('widgetvar-generarFlujoCaja').show();";
+    private static final String CLOSE_MODAL_GENERAR_FLUJOCAJA
+            = "PF('widgetvar-generarFlujoCaja').hide();";
+
     private String nombre = "Systema de Flujo";
     private String body = "paginas/default.xhtml";
     private List<Producto> listaProductos;
     private List<Trabajador> listaTrabajadores;
     private List<Cargo> listaCargos;
+    private List<FlujoCaja> fujoCajas;
 
     public FujoCajaController() {
     }
@@ -47,6 +56,7 @@ public class FujoCajaController implements Serializable {
         Cargo jefeOperaciones = new Cargo(1, "Jefe de Operaciones", 500.00f);
         Administrativo administrador = new Administrativo(1, "Jose Carlos", "Caballero", "Pomajambo", gerente);
         listaTrabajadores.add(administrador);
+        fujoCajas = new ArrayList<>();
     }
 
     public void openCostoMaterial() {
@@ -58,6 +68,45 @@ public class FujoCajaController implements Serializable {
     }
 
     public void openGenerarFLujo() {
+        RequestContext
+                .getCurrentInstance()
+                .execute(OPEN_MODAL_GENERAR_FLUJOCAJA);
+
+    }
+
+    public void closeGenerarFlujo() {
+        RequestContext
+                .getCurrentInstance()
+                .execute(CLOSE_MODAL_GENERAR_FLUJOCAJA);
+    }
+
+    public void generarFlujo() {
+        closeGenerarFlujo();
+        double sueldoTotal = listaTrabajadores.stream().mapToDouble(m -> m.getCargo().getSueldo()).sum();
+
+        FlujoCaja flujoEnero = new FlujoCaja(Mes.Enero, listaProductos, sueldoTotal);
+        fujoCajas.add(flujoEnero);
+        FlujoCaja flujoFebrero = new FlujoCaja(Mes.Febrero, listaProductos, sueldoTotal);
+        fujoCajas.add(flujoFebrero);
+        FlujoCaja flujoMarzo = new FlujoCaja(Mes.Marzo, listaProductos, sueldoTotal);
+        fujoCajas.add(flujoMarzo);
+        FlujoCaja flujoMayo = new FlujoCaja(Mes.Mayo, listaProductos, sueldoTotal);
+        fujoCajas.add(flujoMayo);
+        FlujoCaja flujoJunio = new FlujoCaja(Mes.Junio, listaProductos, sueldoTotal);
+        fujoCajas.add(flujoJunio);
+        FlujoCaja flujoJulio = new FlujoCaja(Mes.Julio, listaProductos, sueldoTotal);
+        fujoCajas.add(flujoJulio);
+        FlujoCaja flujoAgosto = new FlujoCaja(Mes.Agosto, listaProductos, sueldoTotal);
+        fujoCajas.add(flujoAgosto);
+        FlujoCaja flujoSeptiembre = new FlujoCaja(Mes.Septiembre, listaProductos, sueldoTotal);
+        fujoCajas.add(flujoSeptiembre);
+        FlujoCaja flujoObtubre = new FlujoCaja(Mes.Obtubre, listaProductos, sueldoTotal);
+        fujoCajas.add(flujoObtubre);
+        FlujoCaja flujoNoviembre = new FlujoCaja(Mes.Noviembre, listaProductos, sueldoTotal);
+        fujoCajas.add(flujoNoviembre);
+        FlujoCaja flujoDiciembre = new FlujoCaja(Mes.Diciembre, listaProductos, sueldoTotal);
+        fujoCajas.add(flujoDiciembre);
+
         body = "paginas/flujoCaja.xhtml";
     }
 
@@ -120,6 +169,14 @@ public class FujoCajaController implements Serializable {
 
     public void setListaCargos(List<Cargo> listaCargos) {
         this.listaCargos = listaCargos;
+    }
+
+    public List<FlujoCaja> getFujoCajas() {
+        return fujoCajas;
+    }
+
+    public void setFujoCajas(List<FlujoCaja> fujoCajas) {
+        this.fujoCajas = fujoCajas;
     }
 
 }

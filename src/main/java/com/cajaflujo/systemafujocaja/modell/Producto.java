@@ -9,19 +9,21 @@ import java.io.Serializable;
 public class Producto implements Serializable {
 
     private String nombre;
-    private float costoPata;//Costo Directo
-    private float costoAsiento;//Costo Directo
-    private float costoRespaldar;//Costo Directo
-    private float costoTabla;//Costo Directo
-    private float costoEstructura;//Costo Directo
-    private float costoPintura;//Costo Directo
-    private float costoPintado;//Costo Directo
-    private float costoArmado;//Costo Directo
+    private double costoPata;//Costo Directo
+    private double costoAsiento;//Costo Directo
+    private double costoRespaldar;//Costo Directo
+    private double costoTabla;//Costo Directo
+    private double costoEstructura;//Costo Directo
+    private double costoPintura;//Costo Directo
+    private double costoPintado;//Costo Directo
+    private double costoArmado;//Costo Directo
+    private Integer cantidad;
+    private double precio;
 
     public Producto() {
     }
 
-    public Producto(String nombre, float costoPata, float costoAsiento, float costoRespaldar, float costoTabla, float costoEstructura, float costoPintura, float costoPintado, float costoArmado) {
+    public Producto(String nombre, double costoPata, double costoAsiento, double costoRespaldar, double costoTabla, double costoEstructura, double costoPintura, double costoPintado, double costoArmado) {
         this.nombre = nombre;
         this.costoPata = costoPata;
         this.costoAsiento = costoAsiento;
@@ -31,6 +33,20 @@ public class Producto implements Serializable {
         this.costoPintura = costoPintura;
         this.costoPintado = costoPintado;
         this.costoArmado = costoArmado;
+        this.cantidad = 0;
+        this.precio = 0f;
+    }
+
+    public double calcularCostoMateriales() {
+        return (costoPata + costoAsiento + costoRespaldar + costoTabla + costoEstructura + costoPintura) * cantidad;
+    }
+
+    public double calcularCostoManoObra() {
+        return (costoPintado + costoArmado) * cantidad;
+    }
+
+    public double calcularVentaTotal() {
+        return cantidad * precio;
     }
 
     public String getNombre() {
@@ -41,68 +57,84 @@ public class Producto implements Serializable {
         this.nombre = nombre;
     }
 
-    public float getCostoPata() {
+    public double getCostoPata() {
         return costoPata;
     }
 
-    public void setCostoPata(float costoPata) {
+    public void setCostoPata(double costoPata) {
         this.costoPata = costoPata;
     }
 
-    public float getCostoAsiento() {
+    public double getCostoAsiento() {
         return costoAsiento;
     }
 
-    public void setCostoAsiento(float costoAsiento) {
+    public void setCostoAsiento(double costoAsiento) {
         this.costoAsiento = costoAsiento;
     }
 
-    public float getCostoRespaldar() {
+    public double getCostoRespaldar() {
         return costoRespaldar;
     }
 
-    public void setCostoRespaldar(float costoRespaldar) {
+    public void setCostoRespaldar(double costoRespaldar) {
         this.costoRespaldar = costoRespaldar;
     }
 
-    public float getCostoTabla() {
+    public double getCostoTabla() {
         return costoTabla;
     }
 
-    public void setCostoTabla(float costoTabla) {
+    public void setCostoTabla(double costoTabla) {
         this.costoTabla = costoTabla;
     }
 
-    public float getCostoEstructura() {
+    public double getCostoEstructura() {
         return costoEstructura;
     }
 
-    public void setCostoEstructura(float costoEstructura) {
+    public void setCostoEstructura(double costoEstructura) {
         this.costoEstructura = costoEstructura;
     }
 
-    public float getCostoPintura() {
+    public double getCostoPintura() {
         return costoPintura;
     }
 
-    public void setCostoPintura(float costoPintura) {
+    public void setCostoPintura(double costoPintura) {
         this.costoPintura = costoPintura;
     }
 
-    public float getCostoPintado() {
+    public double getCostoPintado() {
         return costoPintado;
     }
 
-    public void setCostoPintado(float costoPintado) {
+    public void setCostoPintado(double costoPintado) {
         this.costoPintado = costoPintado;
     }
 
-    public float getCostoArmado() {
+    public double getCostoArmado() {
         return costoArmado;
     }
 
-    public void setCostoArmado(float costoArmado) {
+    public void setCostoArmado(double costoArmado) {
         this.costoArmado = costoArmado;
+    }
+
+    public Integer getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(Integer cantidad) {
+        this.cantidad = cantidad;
+    }
+
+    public double getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(double precio) {
+        this.precio = precio;
     }
 
 }

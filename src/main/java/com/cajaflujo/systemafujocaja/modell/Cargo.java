@@ -10,12 +10,12 @@ public class Cargo implements Serializable {
 
     private Integer id;
     private String nombre;
-    private float sueldo;
+    private double sueldo;
 
     public Cargo() {
     }
 
-    public Cargo(Integer id, String nombre, float sueldo) {
+    public Cargo(Integer id, String nombre, double sueldo) {
         this.id = id;
         this.nombre = nombre;
         this.sueldo = sueldo;
@@ -37,11 +37,11 @@ public class Cargo implements Serializable {
         this.nombre = nombre;
     }
 
-    public float getSueldo() {
+    public double getSueldo() {
         return sueldo;
     }
 
-    public void setSueldo(float sueldo) {
+    public void setSueldo(double sueldo) {
         this.sueldo = sueldo;
     }
 
