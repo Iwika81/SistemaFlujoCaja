@@ -7,101 +7,108 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:pe="http://primefaces.org/ui/extensions" >
     <h3 style="margin-top: 0">Flujo de Caja</h3>
-
-    <div class="ui-fluid">
-        <table>
-            <tbody>
-                <tr>
-                    <th style=" background-color:#AFEEEE;">
-                        <h:outputText value="MES" />
-                    </th>
-                    <p:repeat value="#{fujoCajaController.fujoCajas}" var="flujo">
-                        <td>
-                            <h:outputText value="#{flujo.mes}" />
-                        </td>
-                    </p:repeat>
-                </tr>
-                <tr>
-                    <th style=" background-color:#AFEEEE;">
-                        <h:outputText value="Ingresos" />
-                    </th>
-
-                    <p:repeat value="#{fujoCajaController.fujoCajas}" var="flujo">
-                        <td>
-                            <h:outputText value="#{flujo.calcularTotalIngreso()}" />
-                        </td>
-                        <td>
-                            <h:outputText value="#{flujo.listaProductos.size()}" />
-                        </td>
-                    </p:repeat>
-                </tr>
-
-                <p:repeat value="#{flujo.listaProductos}" var="producto">
-                    <tr>
-                        <th style=" background-color:#AFEEEE;">
-                            <h:outputText value="#{producto.nombre}" />
-                        </th>
-
-                        <td>
-                            <h:outputText value="#{producto.calcularCostoMateriales()}" />
-                        </td>
-                    </tr>
-                </p:repeat>
-            </tbody>
-        </table>
-        <p:dataGrid var="flujoCaja"
-                    value="#{fujoCajaController.fujoCajas}" 
-                    layout="grid" 
-                    columns="12">
-            <div class="ui-g-12">
-                <h:outputText value="#{flujoCaja.mes}" />
-            </div>
-            <div class="ui-g-12">
-                <h:outputText value="#{flujoCaja.calcularTotalIngreso()}" />
-            </div>
-            <p:repeat value="#{flujoCaja.listaProductos}" var="producto">
-                <div class="ui-g-12">                
-                    <h:outputText value="#{producto.calcularVentaTotal()}" />
-                </div>
-            </p:repeat>
-            <div class="ui-g-12">
-                <h:outputText value="#{flujoCaja.calcularCostoTotalMateriales()}" />
-            </div>
-            <p:repeat value="#{flujoCaja.listaProductos}" var="producto">
-                <div class="ui-g-12">                
-                    <h:outputText value="#{producto.calcularCostoMateriales()}" />
-                </div>
-            </p:repeat>
+    <p:dataGrid var="flujoCaja"
+                value="#{fujoCajaController.fujoCajas}" 
+                layout="grid" 
+                columns="12">
+        <div class="ui-g-12">
+            <h:outputText value="#{flujoCaja.mes}" />
+        </div>
+        <div class="ui-g-12">
+            <h:outputText value="#{flujoCaja.calcularTotalIngreso()}"  
+                          style="font-weight:bold;">
+                <f:convertNumber  pattern="#000.00"/>
+            </h:outputText>
+        </div>
+        <p:repeat value="#{flujoCaja.listaProductos}" var="producto">
             <div class="ui-g-12">                
-                <h:outputText value="#{flujoCaja.calcularCostoTotalManoObra()}" />
+                <h:outputText value="#{producto.calcularVentaTotal()}" >
+                    <f:convertNumber pattern="#000.00"/>
+                </h:outputText>
             </div>
-            <p:repeat value="#{flujoCaja.listaProductos}" var="producto">
-                <div class="ui-g-12">                
-                    <h:outputText value="#{producto.calcularCostoManoObra()}" />
-                </div>
-            </p:repeat>
-        </p:dataGrid>
-        <p:dataTable id="datatable-flujo"
-                     value="#{fujoCajaController.fujoCajas}" 
-                     var="flujo" 
-                     reflow="true">
-            <f:facet name="header">
-                Flujo de Caja Anual
-            </f:facet>
-            <p:column headerText="MES">
-                <h:outputText value="#{flujo.mes}" />
-            </p:column>
-            <p:column headerText="Ingreso">
-                <h:outputText value="#{flujo.calcularTotalIngreso()}" />
-            </p:column>
-            <p:subTable var="producto" value="#{flujo.listaProductos}">
-                <p:column headerText="IngresoProducto">
-                    <h:outputText value="#{producto.nombre}" />
-                </p:column>
-                <p:column headerText="IngresoProducto">
-                    <h:outputText value="#{producto.calcularCostoMateriales()}" />
-                </p:column>
-            </p:subTable>
-        </p:dataTable>
-    </div>
+        </p:repeat>
+        <div class="ui-g-12">
+            <h:outputText value="#{flujoCaja.calcularTotalEgreso()}" 
+                          style="font-weight:bold;">
+                <f:convertNumber pattern="#000.00"/>
+            </h:outputText>
+        </div>
+        <div class="ui-g-12">
+            <h:outputText value="#{flujoCaja.calcularCostoTotalMateriales()}" 
+                          style="font-weight:bold;">
+                <f:convertNumber pattern="#000.00"/>
+            </h:outputText>
+        </div>
+        <p:repeat value="#{flujoCaja.listaProductos}" var="producto">
+            <div class="ui-g-12">                
+                <h:outputText value="#{producto.calcularCostoMateriales()}" >
+                    <f:convertNumber  pattern="#000.00"/>
+                </h:outputText>
+            </div>
+        </p:repeat>
+        <div class="ui-g-12">                
+            <h:outputText value="#{flujoCaja.calcularCostoTotalManoObra()}"
+                          style="font-weight:bold;">
+                <f:convertNumber pattern="#000.00"/>
+            </h:outputText>
+        </div>
+        <p:repeat value="#{flujoCaja.listaProductos}" var="producto">
+            <div class="ui-g-12">                
+                <h:outputText value="#{producto.calcularCostoPintado()}" >
+                    <f:convertNumber pattern="#000.00"/>
+                </h:outputText>
+            </div>
+            <div class="ui-g-12">                
+                <h:outputText value="#{producto.calcularCostoArmado()}" >
+                    <f:convertNumber pattern="#000.00"/>
+                </h:outputText>
+            </div>
+        </p:repeat>
+        <div class="ui-g-12">
+            <h:outputText value="#{flujoCaja.calcularCostoTotalSueldos()}"  
+                          style="font-weight:bold;">
+                <f:convertNumber pattern="#000.00"/>
+            </h:outputText>
+        </div>
+        <div class="ui-g-12">
+            <h:outputText value="#{flujoCaja.sueldoBase}"  
+                          style="font-weight:bold;">
+                <f:convertNumber pattern="#000.00"/>
+            </h:outputText>
+        </div>
+        <div class="ui-g-12">
+            <h:outputText value="#{flujoCaja.cts}" 
+                          style="font-weight:bold;">
+                <f:convertNumber pattern="#000.00"/>
+            </h:outputText>
+        </div>
+        <div class="ui-g-12">
+            <h:outputText value="#{flujoCaja.grati}"  style="font-weight:bold;">
+                <f:convertNumber pattern="#000.00"/>
+            </h:outputText>
+        </div>
+        <div class="ui-g-12">
+            <h:outputText value="#{flujoCaja.calcularEssalud()}" />
+        </div>
+        <p:repeat value="#{flujoCaja.listaProductos}" var="producto">
+            <div class="ui-g-12">                
+                <h:outputText value="#{producto.cantidad*flujoCaja.calcularCostoTotalSueldos()/flujoCaja.calcularTotalIngreso()}" >
+                    <f:convertNumber pattern="#000.00"/>
+                </h:outputText>
+            </div>
+        </p:repeat>
+        <div class="ui-g-12">                
+            <h:outputText value="#{flujoCaja.calcularTotalFlujo()}" 
+                          style="font-weight:bold;">
+                <f:convertNumber pattern="#000.00"/>
+            </h:outputText>
+        </div>
+        <p:repeat value="#{flujoCaja.listaProductos}" var="producto">
+            <div class="ui-g-12">                
+                <h:outputText value="#{producto.calcularVentaTotal()-(producto.calcularCostoMateriales()+producto.calcularCostoManoObra()+producto.costeo)}" >
+                    <f:convertNumber pattern="#000.00"/>
+                </h:outputText>
+            </div>
+        </p:repeat>
+    </p:dataGrid>
 </ui:composition>

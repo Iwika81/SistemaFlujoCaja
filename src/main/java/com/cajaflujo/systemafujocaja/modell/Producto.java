@@ -19,10 +19,12 @@ public class Producto implements Serializable {
     private double manoObraArmado;//Mano de Obra
     private Integer cantidad;
     private double precio;
+    private double costeo;
 
     public Producto() {
         this.cantidad = 0;
-        this.precio = 0f;
+        this.precio = 0d;
+        this.costeo = 0d;
     }
 
     public Producto(String nombre, double costoPata, double costoAsiento, double costoRespaldar, double costoTabla, double costoEstructura, double costoPintura, double manoObraPintado, double manoObraArmado) {
@@ -37,6 +39,7 @@ public class Producto implements Serializable {
         this.manoObraArmado = manoObraArmado;
         this.cantidad = 0;
         this.precio = 0f;
+        this.costeo = 0d;
     }
 
     public double calcularCostoMateriales() {
@@ -45,6 +48,14 @@ public class Producto implements Serializable {
 
     public double calcularCostoManoObra() {
         return (manoObraPintado + manoObraArmado) * cantidad;
+    }
+
+    public double calcularCostoPintado() {
+        return manoObraPintado * cantidad;
+    }
+
+    public double calcularCostoArmado() {
+        return manoObraArmado * cantidad;
     }
 
     public double calcularVentaTotal() {
@@ -137,6 +148,14 @@ public class Producto implements Serializable {
 
     public void setPrecio(double precio) {
         this.precio = precio;
+    }
+
+    public double getCosteo() {
+        return costeo;
+    }
+
+    public void setCosteo(double costeo) {
+        this.costeo = costeo;
     }
 
 }
