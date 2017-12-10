@@ -78,12 +78,13 @@
         </div>
         <div class="ui-g-12">
             <h:outputText value="#{flujoCaja.cts}" 
-                          style="font-weight:bold;">
+                          >
                 <f:convertNumber pattern="#000.00"/>
             </h:outputText>
         </div>
         <div class="ui-g-12">
-            <h:outputText value="#{flujoCaja.grati}"  style="font-weight:bold;">
+            <h:outputText value="#{flujoCaja.grati}"
+                          >
                 <f:convertNumber pattern="#000.00"/>
             </h:outputText>
         </div>
@@ -92,7 +93,7 @@
         </div>
         <p:repeat value="#{flujoCaja.listaProductos}" var="producto">
             <div class="ui-g-12">                
-                <h:outputText value="#{producto.cantidad*flujoCaja.calcularCostoTotalSueldos()/flujoCaja.calcularTotalIngreso()}" >
+                <h:outputText value="#{producto.costeo}" >
                     <f:convertNumber pattern="#000.00"/>
                 </h:outputText>
             </div>
