@@ -1,6 +1,7 @@
 package com.cajaflujo.systemafujocaja;
 
-import com.cajaflujo.systemafujocaja.modell.Administrativo;
+import com.cajaflujo.systemafujocaja.facade.DefaultFlujoCajaFacade;
+import com.cajaflujo.systemafujocaja.facade.FlujoCajaFacade;
 import com.cajaflujo.systemafujocaja.modell.Cargo;
 import com.cajaflujo.systemafujocaja.modell.FlujoCaja;
 import com.cajaflujo.systemafujocaja.modell.FlujoCaja.Mes;
@@ -10,12 +11,13 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
-import javafx.scene.control.TableColumn.CellEditEvent;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.RowEditEvent;
 
@@ -38,32 +40,24 @@ public class FujoCajaController implements Serializable {
     private static final String CLOSE_MODAL_GENERAR_FLUJOCAJA
             = "PF('widgetvar-generarFlujoCaja').hide();";
 
+    @ManagedProperty("#{flujoCajaFacade}")
+    private FlujoCajaFacade flujoCajaFacade;
+
     private String nombre = "Systema de Flujo";
     private String body = "paginas/default.xhtml";
     private List<Producto> listaProductos;
     private List<Trabajador> listaTrabajadores;
     private List<Cargo> listaCargos;
-    private List<FlujoCaja> fujoCajas;
+    private FlujoCaja[] fujoCajas;
     private Producto nuevoProducto;
-
-    public FujoCajaController() {
-    }
 
     @PostConstruct
     public void init() {
         LOGGER.info("GestionControlMedidores -> INIT");
-        listaProductos = new ArrayList<>();
-        Producto silla1 = new Producto("Silla 1", 5, 10, 10, 10, 15, 5, 20, 25);
-        Producto silla2 = new Producto("Silla 2", 8, 12, 14, 12, 18, 7, 25, 30);
-        listaProductos.add(silla1);
-        listaProductos.add(silla2);
-        listaTrabajadores = new ArrayList<>();
-        Cargo gerente = new Cargo(1, "Gerente", 5000.00f);
-        Cargo jefeOperaciones = new Cargo(1, "Jefe de Operaciones", 500.00f);
-        Administrativo administrador = new Administrativo(1, "Jose Carlos", "Caballero", "Pomajambo", gerente);
-        administrador.getApellidoPaterno();
-        listaTrabajadores.add(administrador);
-        fujoCajas = new ArrayList<>();
+        flujoCajaFacade = new DefaultFlujoCajaFacade();
+        listaProductos = flujoCajaFacade.listaProductos();
+        listaTrabajadores = flujoCajaFacade.listaTrabajadores();
+        fujoCajas = new FlujoCaja[12];
     }
 
     public void openCostoMaterial() {
@@ -89,30 +83,34 @@ public class FujoCajaController implements Serializable {
 
     public void generarFlujo() {
         closeGenerarFlujo();
-        double sueldoTotal = listaTrabajadores.stream().mapToDouble(m -> m.getCargo().getSueldo()).sum();
+        double sueldoTotal = listaTrabajadores.stream()
+                .mapToDouble(m -> m.getCargo().getSueldo())
+                .sum();
 
         FlujoCaja flujoEnero = new FlujoCaja(Mes.Enero, listaProductos, sueldoTotal);
-        fujoCajas.add(flujoEnero);
+        fujoCajas[0] = flujoEnero;
         FlujoCaja flujoFebrero = new FlujoCaja(Mes.Febrero, listaProductos, sueldoTotal);
-        fujoCajas.add(flujoFebrero);
+        fujoCajas[1] = flujoFebrero;
         FlujoCaja flujoMarzo = new FlujoCaja(Mes.Marzo, listaProductos, sueldoTotal);
-        fujoCajas.add(flujoMarzo);
+        fujoCajas[2] = flujoMarzo;
+        FlujoCaja flujoAbril = new FlujoCaja(Mes.Abril, listaProductos, sueldoTotal);
+        fujoCajas[3] = flujoAbril;
         FlujoCaja flujoMayo = new FlujoCaja(Mes.Mayo, listaProductos, sueldoTotal);
-        fujoCajas.add(flujoMayo);
+        fujoCajas[4] = flujoMayo;
         FlujoCaja flujoJunio = new FlujoCaja(Mes.Junio, listaProductos, sueldoTotal);
-        fujoCajas.add(flujoJunio);
+        fujoCajas[5] = flujoJunio;
         FlujoCaja flujoJulio = new FlujoCaja(Mes.Julio, listaProductos, sueldoTotal);
-        fujoCajas.add(flujoJulio);
+        fujoCajas[6] = flujoJulio;
         FlujoCaja flujoAgosto = new FlujoCaja(Mes.Agosto, listaProductos, sueldoTotal);
-        fujoCajas.add(flujoAgosto);
+        fujoCajas[7] = flujoAgosto;
         FlujoCaja flujoSeptiembre = new FlujoCaja(Mes.Septiembre, listaProductos, sueldoTotal);
-        fujoCajas.add(flujoSeptiembre);
+        fujoCajas[8] = flujoSeptiembre;
         FlujoCaja flujoObtubre = new FlujoCaja(Mes.Obtubre, listaProductos, sueldoTotal);
-        fujoCajas.add(flujoObtubre);
+        fujoCajas[9] = flujoObtubre;
         FlujoCaja flujoNoviembre = new FlujoCaja(Mes.Noviembre, listaProductos, sueldoTotal);
-        fujoCajas.add(flujoNoviembre);
+        fujoCajas[10] = flujoNoviembre;
         FlujoCaja flujoDiciembre = new FlujoCaja(Mes.Diciembre, listaProductos, sueldoTotal);
-        fujoCajas.add(flujoDiciembre);
+        fujoCajas[11] = flujoDiciembre;
 
         body = "paginas/flujoCaja.xhtml";
     }
@@ -201,11 +199,11 @@ public class FujoCajaController implements Serializable {
         this.listaCargos = listaCargos;
     }
 
-    public List<FlujoCaja> getFujoCajas() {
+    public FlujoCaja[] getFujoCajas() {
         return fujoCajas;
     }
 
-    public void setFujoCajas(List<FlujoCaja> fujoCajas) {
+    public void setFujoCajas(FlujoCaja[] fujoCajas) {
         this.fujoCajas = fujoCajas;
     }
 
@@ -215,6 +213,14 @@ public class FujoCajaController implements Serializable {
 
     public void setNuevoProducto(Producto nuevoProducto) {
         this.nuevoProducto = nuevoProducto;
+    }
+
+    public FlujoCajaFacade getFlujoCajaFacade() {
+        return flujoCajaFacade;
+    }
+
+    public void setFlujoCajaFacade(FlujoCajaFacade flujoCajaFacade) {
+        this.flujoCajaFacade = flujoCajaFacade;
     }
 
 }

@@ -9,37 +9,99 @@
     <h3 style="margin-top: 0">Flujo de Caja</h3>
 
     <div class="ui-fluid">
-        <p:dataGrid var="flujo"
-                    value="#{fujoCajaController.fujoCajas}" layout="grid"
+        <table>
+            <tbody>
+                <tr>
+                    <th style=" background-color:#AFEEEE;">
+                        <h:outputText value="MES" />
+                    </th>
+                    <p:repeat value="#{fujoCajaController.fujoCajas}" var="flujo">
+                        <td>
+                            <h:outputText value="#{flujo.mes}" />
+                        </td>
+                    </p:repeat>
+                </tr>
+                <tr>
+                    <th style=" background-color:#AFEEEE;">
+                        <h:outputText value="Ingresos" />
+                    </th>
+
+                    <p:repeat value="#{fujoCajaController.fujoCajas}" var="flujo">
+                        <td>
+                            <h:outputText value="#{flujo.calcularTotalIngreso()}" />
+                        </td>
+                        <td>
+                            <h:outputText value="#{flujo.listaProductos.size()}" />
+                        </td>
+                    </p:repeat>
+                </tr>
+
+                <p:repeat value="#{flujo.listaProductos}" var="producto">
+                    <tr>
+                        <th style=" background-color:#AFEEEE;">
+                            <h:outputText value="#{producto.nombre}" />
+                        </th>
+
+                        <td>
+                            <h:outputText value="#{producto.calcularCostoMateriales()}" />
+                        </td>
+                    </tr>
+                </p:repeat>
+            </tbody>
+        </table>
+        <p:dataGrid var="flujoCaja"
+                    value="#{fujoCajaController.fujoCajas}" 
+                    layout="grid" 
                     columns="12">
             <div class="ui-g-12">
-                <h:outputText value="#{flujo.mes}" />
+                <h:outputText value="#{flujoCaja.mes}" />
             </div>
             <div class="ui-g-12">
-                <h:outputText value="#{flujo.calcularTotalIngreso()}" />
+                <h:outputText value="#{flujoCaja.calcularTotalIngreso()}" />
             </div>
+            <p:repeat value="#{flujoCaja.listaProductos}" var="producto">
+                <div class="ui-g-12">                
+                    <h:outputText value="#{producto.calcularVentaTotal()}" />
+                </div>
+            </p:repeat>
             <div class="ui-g-12">
-                <h:outputText value="#{flujo.calcularCostoTotalMateriales()}" />
+                <h:outputText value="#{flujoCaja.calcularCostoTotalMateriales()}" />
             </div>
+            <p:repeat value="#{flujoCaja.listaProductos}" var="producto">
+                <div class="ui-g-12">                
+                    <h:outputText value="#{producto.calcularCostoMateriales()}" />
+                </div>
+            </p:repeat>
             <div class="ui-g-12">                
-                <h:outputText value="#{flujo.calcularCostoTotalManoObra()}" />
+                <h:outputText value="#{flujoCaja.calcularCostoTotalManoObra()}" />
             </div>
+            <p:repeat value="#{flujoCaja.listaProductos}" var="producto">
+                <div class="ui-g-12">                
+                    <h:outputText value="#{producto.calcularCostoManoObra()}" />
+                </div>
+            </p:repeat>
         </p:dataGrid>
-        <p:dataTable id="datatable-flujo" value="#{fujoCajaController.fujoCajas}" 
-                     var="flujo"
+        <p:dataTable id="datatable-flujo"
+                     value="#{fujoCajaController.fujoCajas}" 
+                     var="flujo" 
                      reflow="true">
-            <div class="ui-g-12">
+            <f:facet name="header">
+                Flujo de Caja Anual
+            </f:facet>
+            <p:column headerText="MES">
                 <h:outputText value="#{flujo.mes}" />
-            </div>
-            <div class="ui-g-12">
+            </p:column>
+            <p:column headerText="Ingreso">
                 <h:outputText value="#{flujo.calcularTotalIngreso()}" />
-            </div>
-            <div class="ui-g-12">
-                <h:outputText value="#{flujo.calcularCostoTotalMateriales()}" />
-            </div>
-            <div class="ui-g-12">                
-                <h:outputText value="#{flujo.calcularCostoTotalManoObra()}" />
-            </div>
+            </p:column>
+            <p:subTable var="producto" value="#{flujo.listaProductos}">
+                <p:column headerText="IngresoProducto">
+                    <h:outputText value="#{producto.nombre}" />
+                </p:column>
+                <p:column headerText="IngresoProducto">
+                    <h:outputText value="#{producto.calcularCostoMateriales()}" />
+                </p:column>
+            </p:subTable>
         </p:dataTable>
     </div>
 </ui:composition>

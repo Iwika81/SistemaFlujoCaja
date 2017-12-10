@@ -10,14 +10,16 @@ public class Cargo implements Serializable {
 
     private Integer id;
     private String nombre;
+    private Tipo tipo;
     private double sueldo;
 
     public Cargo() {
     }
 
-    public Cargo(Integer id, String nombre, double sueldo) {
+    public Cargo(Integer id, String nombre, Tipo tipo, double sueldo) {
         this.id = id;
         this.nombre = nombre;
+        this.tipo = tipo;
         this.sueldo = sueldo;
     }
 
@@ -43,6 +45,19 @@ public class Cargo implements Serializable {
 
     public void setSueldo(double sueldo) {
         this.sueldo = sueldo;
+    }
+
+    public Tipo getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(Tipo tipo) {
+        this.tipo = tipo;
+    }
+
+    public enum Tipo {
+        Operativo,
+        Administrativo
     }
 
 }

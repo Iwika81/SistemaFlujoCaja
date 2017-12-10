@@ -1,6 +1,7 @@
 package com.cajaflujo.systemafujocaja.modell;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -14,6 +15,7 @@ public class FlujoCaja implements Serializable {
     private double sueldoBase;
 
     public FlujoCaja() {
+        listaProductos = new ArrayList<>();
     }
 
     public FlujoCaja(Mes mes, List<Producto> listaProductos, double sueldoBase) {
