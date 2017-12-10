@@ -15,15 +15,17 @@ public class Producto implements Serializable {
     private double costoTabla;//Costo Directo
     private double costoEstructura;//Costo Directo
     private double costoPintura;//Costo Directo
-    private double costoPintado;//Costo Directo
-    private double costoArmado;//Costo Directo
+    private double manoObraPintado;//Mano de Obra
+    private double manoObraArmado;//Mano de Obra
     private Integer cantidad;
     private double precio;
 
     public Producto() {
+        this.cantidad = 0;
+        this.precio = 0f;
     }
 
-    public Producto(String nombre, double costoPata, double costoAsiento, double costoRespaldar, double costoTabla, double costoEstructura, double costoPintura, double costoPintado, double costoArmado) {
+    public Producto(String nombre, double costoPata, double costoAsiento, double costoRespaldar, double costoTabla, double costoEstructura, double costoPintura, double manoObraPintado, double manoObraArmado) {
         this.nombre = nombre;
         this.costoPata = costoPata;
         this.costoAsiento = costoAsiento;
@@ -31,8 +33,8 @@ public class Producto implements Serializable {
         this.costoTabla = costoTabla;
         this.costoEstructura = costoEstructura;
         this.costoPintura = costoPintura;
-        this.costoPintado = costoPintado;
-        this.costoArmado = costoArmado;
+        this.manoObraPintado = manoObraPintado;
+        this.manoObraArmado = manoObraArmado;
         this.cantidad = 0;
         this.precio = 0f;
     }
@@ -42,7 +44,7 @@ public class Producto implements Serializable {
     }
 
     public double calcularCostoManoObra() {
-        return (costoPintado + costoArmado) * cantidad;
+        return (manoObraPintado + manoObraArmado) * cantidad;
     }
 
     public double calcularVentaTotal() {
@@ -105,20 +107,20 @@ public class Producto implements Serializable {
         this.costoPintura = costoPintura;
     }
 
-    public double getCostoPintado() {
-        return costoPintado;
+    public double getManoObraPintado() {
+        return manoObraPintado;
     }
 
-    public void setCostoPintado(double costoPintado) {
-        this.costoPintado = costoPintado;
+    public void setManoObraPintado(double manoObraPintado) {
+        this.manoObraPintado = manoObraPintado;
     }
 
-    public double getCostoArmado() {
-        return costoArmado;
+    public double getManoObraArmado() {
+        return manoObraArmado;
     }
 
-    public void setCostoArmado(double costoArmado) {
-        this.costoArmado = costoArmado;
+    public void setManoObraArmado(double manoObraArmado) {
+        this.manoObraArmado = manoObraArmado;
     }
 
     public Integer getCantidad() {

@@ -1,12 +1,13 @@
 package com.cajaflujo.systemafujocaja.modell;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  *
  * @author Ivan Caballero <ivan.caballer at gmail.com>
  */
-public class FlujoCaja {
+public class FlujoCaja implements Serializable {
 
     private Mes mes;
     private List<Producto> listaProductos;

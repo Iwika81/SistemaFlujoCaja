@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"      
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                >
+    <p:dialog id="dialog-nuevaProducto" closeOnEscape="true"
+              widgetVar="widgetvar-nuevoProducto"
+              modal="true"
+              draggable="false"
+              position="top" responsive="true"
+              resizable="false" 
+              appendTo="@(body)"
+              header="Ingrese nueva Silla" width="400px"
+              >
+        <h:form id="form-nuevaProducto">
+            <div class="ui-g">
+                <div class="ui-g-6">
+                    <p:outputLabel for="input-producto"
+                                   value="Nombre del Producto"/>
+                </div>
+                <div class="ui-g-6">
+                    <p:inputText id="input-producto" 
+                                 value="#{fujoCajaController.nuevoProducto.nombre}"/>
+                </div>
+                <div class="ui-g-6">
+                    <p:outputLabel for="input-costoPata"
+                                   value="Costo por Pata"/>
+                </div>
+                <div class="ui-g-6">
+                    <p:inputText id="input-costoPata" 
+                                 value="#{fujoCajaController.nuevoProducto.costoPata}"/>
+                </div>
+                <div class="ui-g-6">
+                    <p:outputLabel for="input-costoAsiento"
+                                   value="Costo por Asiento"/>
+                </div>
+                <div class="ui-g-6">
+                    <p:inputText id="input-costoAsiento" 
+                                 value="#{fujoCajaController.nuevoProducto.costoAsiento}"/>
+                </div>
+                <div class="ui-g-6">
+                    <p:outputLabel for="input-costoRespaldar"
+                                   value="Costo por Respaldar"/>
+                </div>
+                <div class="ui-g-6">
+                    <p:inputText id="input-costoRespaldar" 
+                                 value="#{fujoCajaController.nuevoProducto.costoRespaldar}"/>
+                </div>
+                <div class="ui-g-6">
+                    <p:outputLabel for="input-costotabla"
+                                   value="Costo por Tabla"/>
+                </div>
+                <div class="ui-g-6">
+                    <p:inputText id="input-costotabla" 
+                                 value="#{fujoCajaController.nuevoProducto.costoTabla}"/>
+                </div>
+                <div class="ui-g-6">
+                    <p:outputLabel for="input-costoEstructura"
+                                   value="Costo por Estructura"/>
+                </div>
+                <div class="ui-g-6">
+                    <p:inputText id="input-costoEstructura" 
+                                 value="#{fujoCajaController.nuevoProducto.costoEstructura}"/>
+                </div>
+                <div class="ui-g-6">
+                    <p:outputLabel for="input-costoPintura"
+                                   value="Costo por Pintura"/>
+                </div>
+                <div class="ui-g-6">
+                    <p:inputText id="input-costoPintura" 
+                                 value="#{fujoCajaController.nuevoProducto.costoPintura}"/>
+                </div>
+                <div class="ui-g-6">
+                    <p:outputLabel for="input-manoObraPintado"
+                                   value="Mano de Obra por Pintado"/>
+                </div>
+                <div class="ui-g-6">
+                    <p:inputText id="input-manoObraPintado" 
+                                 value="#{fujoCajaController.nuevoProducto.manoObraPintado}"/>
+                </div>
+                <div class="ui-g-6">
+                    <p:outputLabel for="input-manoObraArmado"
+                                   value="Mano de Obra por Armado"/>
+                </div>
+                <div class="ui-g-6">
+                    <p:inputText id="input-manoObraArmado" 
+                                 value="#{fujoCajaController.nuevoProducto.manoObraArmado}"/>
+                </div>
+            </div>
+            <div style="text-align: right">
+                <p:commandButton id="button-ingresarNuevoProducto"
+                                 value="Ingresar nueva Silla"
+                                 actionListener="#{fujoCajaController.ingresarNuevoProducto()}"
+                                 update="grow-flujoCaja,
+                                 :form_FlujoCaja"
+                                 >
+                </p:commandButton>
+                <p:commandButton id="button-close_NuevaSilla" 
+                                 value="Salir"
+                                 actionListener="#{fujoCajaController.closeNuevoProducto()}"
+                                 immediate="true"
+                                 update="grow-flujoCaja"
+                                 />
+            </div>          
+        </h:form>
+    </p:dialog>
+</ui:composition>
+

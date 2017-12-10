@@ -9,7 +9,9 @@
 
     <div class="ui-fluid">
         <h2>Costos Directos- Material</h2>
-        <p:dataTable var="producto" value="#{fujoCajaController.listaProductos}" 
+        <p:dataTable id="dataTable-Productos"
+                     var="producto" 
+                     value="#{fujoCajaController.listaProductos}" 
                      reflow="true"
                      editable="true"
                      style="margin-top:20px">
@@ -63,21 +65,27 @@
             </p:column>
             <p:column headerText="Pintado">
                 <p:cellEditor>
-                    <f:facet name="output"><h:outputText value="#{producto.costoPintado}" /></f:facet>
-                    <f:facet name="input"><p:inputText id="input-pintado" value="#{producto.costoPintado}" style="width:100%"/></f:facet>
+                    <f:facet name="output"><h:outputText value="#{producto.manoObraPintado}" /></f:facet>
+                    <f:facet name="input"><p:inputText id="input-pintado" value="#{producto.manoObraPintado}" style="width:100%"/></f:facet>
                 </p:cellEditor>
             </p:column>
             <p:column headerText="Armado">
                 <p:cellEditor>
-                    <f:facet name="output"><h:outputText value="#{producto.costoArmado}" /></f:facet>
-                    <f:facet name="input"><p:inputText id="input-armado" value="#{producto.costoArmado}" style="width:100%"/></f:facet>
+                    <f:facet name="output"><h:outputText value="#{producto.manoObraArmado}" /></f:facet>
+                    <f:facet name="input"><p:inputText id="input-armado" value="#{producto.manoObraArmado}" style="width:100%"/></f:facet>
                 </p:cellEditor>
             </p:column>
             <p:column style="width:32px">
                 <p:rowEditor />
             </p:column>
         </p:dataTable>
-        <p:commandButton id="btn-agregarProducto" value="Agregar nueva Silla" icon="fa fa-edit" type="button"/>
     </div>
-
+    <div style="text-align: right">
+        <p:commandButton id="btn-agregarProducto" 
+                         value="Agregar nueva Silla"
+                         actionListener="#{fujoCajaController.openNuevoProducto()}"
+                         icon="fa fa-edit" 
+                         update="grow-flujoCaja,
+                         form-nuevaProducto"/>
+    </div>
 </ui:composition>

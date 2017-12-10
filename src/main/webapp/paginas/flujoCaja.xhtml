@@ -25,5 +25,21 @@
                 <h:outputText value="#{flujo.calcularCostoTotalManoObra()}" />
             </div>
         </p:dataGrid>
+        <p:dataTable id="datatable-flujo" value="#{fujoCajaController.fujoCajas}" 
+                     var="flujo"
+                     reflow="true">
+            <div class="ui-g-12">
+                <h:outputText value="#{flujo.mes}" />
+            </div>
+            <div class="ui-g-12">
+                <h:outputText value="#{flujo.calcularTotalIngreso()}" />
+            </div>
+            <div class="ui-g-12">
+                <h:outputText value="#{flujo.calcularCostoTotalMateriales()}" />
+            </div>
+            <div class="ui-g-12">                
+                <h:outputText value="#{flujo.calcularCostoTotalManoObra()}" />
+            </div>
+        </p:dataTable>
     </div>
 </ui:composition>

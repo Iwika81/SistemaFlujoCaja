@@ -28,6 +28,11 @@ import org.primefaces.event.RowEditEvent;
 public class FujoCajaController implements Serializable {
 
     private static final Logger LOGGER = Logger.getLogger(FujoCajaController.class.getName());
+
+    private static final String OPEN_MODAL_NUEVO_PRODUCTO
+            = "PF('widgetvar-nuevoProducto').show();";
+    private static final String CLOSE_MODAL_NUEVO_PRODUCTO
+            = "PF('widgetvar-nuevoProducto').hide();";
     private static final String OPEN_MODAL_GENERAR_FLUJOCAJA
             = "PF('widgetvar-generarFlujoCaja').show();";
     private static final String CLOSE_MODAL_GENERAR_FLUJOCAJA
@@ -39,6 +44,7 @@ public class FujoCajaController implements Serializable {
     private List<Trabajador> listaTrabajadores;
     private List<Cargo> listaCargos;
     private List<FlujoCaja> fujoCajas;
+    private Producto nuevoProducto;
 
     public FujoCajaController() {
     }
@@ -55,6 +61,7 @@ public class FujoCajaController implements Serializable {
         Cargo gerente = new Cargo(1, "Gerente", 5000.00f);
         Cargo jefeOperaciones = new Cargo(1, "Jefe de Operaciones", 500.00f);
         Administrativo administrador = new Administrativo(1, "Jose Carlos", "Caballero", "Pomajambo", gerente);
+        administrador.getApellidoPaterno();
         listaTrabajadores.add(administrador);
         fujoCajas = new ArrayList<>();
     }
@@ -130,6 +137,29 @@ public class FujoCajaController implements Serializable {
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 
+    public void openNuevoProducto() {
+        nuevoProducto = new Producto();
+        RequestContext
+                .getCurrentInstance()
+                .execute(OPEN_MODAL_NUEVO_PRODUCTO);
+    }
+
+    public void closeNuevoProducto() {
+        RequestContext
+                .getCurrentInstance()
+                .execute(CLOSE_MODAL_NUEVO_PRODUCTO);
+    }
+
+    public void ingresarNuevoProducto() {
+        LOGGER.info("TESTT");
+        if (!nuevoProducto.getNombre().isEmpty()) {
+            listaProductos.add(nuevoProducto);
+            closeNuevoProducto();
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Campo nombre no puede ser vacio."));
+        }
+    }
+
     ////GETTER AND SETTER
     public String getNombre() {
         return nombre;
@@ -177,6 +207,14 @@ public class FujoCajaController implements Serializable {
 
     public void setFujoCajas(List<FlujoCaja> fujoCajas) {
         this.fujoCajas = fujoCajas;
+    }
+
+    public Producto getNuevoProducto() {
+        return nuevoProducto;
+    }
+
+    public void setNuevoProducto(Producto nuevoProducto) {
+        this.nuevoProducto = nuevoProducto;
     }
 
 }
