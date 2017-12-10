@@ -20,6 +20,11 @@ public class FlujoCaja implements Serializable {
         listaProductos = new ArrayList<>();
     }
 
+    public FlujoCaja(Mes mes) {
+        this.mes = mes;
+        listaProductos = new ArrayList<>();
+    }
+
     public FlujoCaja(Mes mes, List<Producto> listaProductos, double sueldoBase) {
         this.mes = mes;
         this.listaProductos = listaProductos;
@@ -131,6 +136,7 @@ public class FlujoCaja implements Serializable {
         Septiembre,
         Obtubre,
         Noviembre,
-        Diciembre
+        Diciembre,
+        Total
     }
 }

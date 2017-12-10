@@ -8,11 +8,20 @@ import java.io.Serializable;
  */
 public class Trabajador implements Serializable {
 
-    protected Integer id;
-    protected String nombres;
-    protected String apellidoPaterno;
-    protected String apellidoMaterno;
-    protected Cargo cargo;
+    private Integer id;
+    private String nombres;
+    private String apellidoPaterno;
+    private String apellidoMaterno;
+    private Cargo cargo;
+
+    public Trabajador() {
+        this.cargo = new Cargo();
+    }
+
+    public Trabajador(Integer id) {
+        this.id = id;
+        this.cargo = new Cargo();
+    }
 
     public Trabajador(Integer id, String nombres, String apellidoPaterno, String apellidoMaterno, Cargo cargo) {
         this.id = id;

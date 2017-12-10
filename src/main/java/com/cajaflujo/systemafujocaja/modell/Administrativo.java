@@ -10,6 +10,11 @@ public class Administrativo extends Trabajador implements Serializable {
 
     private double bonoAnual;
 
+    public Administrativo(Integer id) {
+        super(id);
+        this.bonoAnual = 0d;
+    }
+
     public Administrativo(Integer id, String nombres, String apellidoPaterno, String apellidoMaterno, Cargo cargo) {
         super(id, nombres, apellidoPaterno, apellidoMaterno, cargo);
     }

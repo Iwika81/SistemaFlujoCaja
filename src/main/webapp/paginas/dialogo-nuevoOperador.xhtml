@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"      
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                >
+    <p:dialog id="dialog-operador" closeOnEscape="true"
+              widgetVar="widgetvar-operador"
+              modal="true"
+              draggable="false"
+              position="top" responsive="true"
+              resizable="false" 
+              appendTo="@(body)"
+              header="Ingrese nuevo Operador" width="400px"
+              >
+        <h:form id="form-operador">
+            <div class="ui-g">
+                <div class="ui-g-6">
+                    <p:outputLabel for="input-nombre"
+                                   value="Nombres"/>
+                </div>
+                <div class="ui-g-6">
+                    <p:inputText id="input-nombre" 
+                                 value="#{fujoCajaController.nuevoOperativo.nombres}"/>
+                </div>
+                <div class="ui-g-6">
+                    <p:outputLabel for="input-aPaterno"
+                                   value="Apellido Paterno"/>
+                </div>
+                <div class="ui-g-6">
+                    <p:inputText id="input-aPaterno" 
+                                 value="#{fujoCajaController.nuevoOperativo.apellidoPaterno}"/>
+                </div>
+                <div class="ui-g-6">
+                    <p:outputLabel for="input-aMaterno"
+                                   value="Apellido Materno"/>
+                </div>
+                <div class="ui-g-6">
+                    <p:inputText id="input-aMaterno" 
+                                 value="#{fujoCajaController.nuevoOperativo.apellidoMaterno}"/>
+                </div>
+<!--                <div class="ui-g-6">
+                    <p:outputLabel for="input-cargo"
+                                   value="Cargo"/>
+                </div>-->
+<!--                <div class="ui-g-6">
+                    <p:selectOneMenu id="input-cargo"
+                                     value="#{fujoCajaController.nuevoOperativo.cargo}">
+                        <f:selectItem itemLabel="Selecione un Cargo" itemValue="" />
+                        <f:selectItems value="#{fujoCajaController.listaCargosOperarios}" />
+                    </p:selectOneMenu>
+                </div>-->
+            </div>
+            <div style="text-align: right">
+                <p:commandButton id="button-ingresarNuevoOperador"
+                                 value="Ingresar nuevo Operador"
+                                 actionListener="#{fujoCajaController.ingresarNuevoOperador()}"
+                                 update="grow-flujoCaja,
+                                 :form_FlujoCaja"
+                                 >
+                </p:commandButton>
+                <p:commandButton id="button-close_NuevaSilla" 
+                                 value="Salir"
+                                 actionListener="#{fujoCajaController.closeNuevoOperador()}"
+                                 immediate="true"
+                                 update="grow-flujoCaja"
+                                 />
+            </div>          
+        </h:form>
+    </p:dialog>
+</ui:composition>
+

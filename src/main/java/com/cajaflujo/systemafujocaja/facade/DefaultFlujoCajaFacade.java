@@ -19,13 +19,15 @@ public class DefaultFlujoCajaFacade implements FlujoCajaFacade, Serializable {
     public List<Cargo> cargosAdministrativos() {
         List<Cargo> listaCargos = new ArrayList<>();
         listaCargos.add(new Cargo(1, "Gerente", Cargo.Tipo.Administrativo, 5000.00f));
+        listaCargos.add(new Cargo(2, "Jefe de RRHH", Cargo.Tipo.Administrativo, 3500.00f));
         return listaCargos;
     }
 
     @Override
     public List<Cargo> cargosOperativos() {
         List<Cargo> listaCargos = new ArrayList<>();
-        listaCargos.add(new Cargo(3, "Jefe de Operaciones", Cargo.Tipo.Operativo, 5000.00f));
+        listaCargos.add(new Cargo(3, "Jefe de Operaciones", Cargo.Tipo.Operativo, 3500.00f));
+        listaCargos.add(new Cargo(4, "Supervisor", Cargo.Tipo.Operativo, 3500.00f));
         return listaCargos;
     }
 

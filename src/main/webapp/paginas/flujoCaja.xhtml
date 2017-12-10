@@ -11,9 +11,9 @@
     <p:dataGrid var="flujoCaja"
                 value="#{fujoCajaController.fujoCajas}" 
                 layout="grid" 
-                columns="12">
+                columns="13">
         <f:facet name="header">
-            <h:outputText value="Mes" styleClass="leftAlign"/>
+            <p:column>Flujo de Caja</p:column>
         </f:facet>
         <div class="ui-g-12">
             <h:outputText value="#{flujoCaja.mes}" />

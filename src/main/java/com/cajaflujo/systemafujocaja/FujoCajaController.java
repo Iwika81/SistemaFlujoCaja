@@ -2,9 +2,11 @@ package com.cajaflujo.systemafujocaja;
 
 import com.cajaflujo.systemafujocaja.facade.DefaultFlujoCajaFacade;
 import com.cajaflujo.systemafujocaja.facade.FlujoCajaFacade;
+import com.cajaflujo.systemafujocaja.modell.Administrativo;
 import com.cajaflujo.systemafujocaja.modell.Cargo;
 import com.cajaflujo.systemafujocaja.modell.FlujoCaja;
 import com.cajaflujo.systemafujocaja.modell.FlujoCaja.Mes;
+import com.cajaflujo.systemafujocaja.modell.Operativo;
 import com.cajaflujo.systemafujocaja.modell.Producto;
 import com.cajaflujo.systemafujocaja.modell.Trabajador;
 import java.io.Serializable;
@@ -39,6 +41,14 @@ public class FujoCajaController implements Serializable {
             = "PF('widgetvar-generarFlujoCaja').show();";
     private static final String CLOSE_MODAL_GENERAR_FLUJOCAJA
             = "PF('widgetvar-generarFlujoCaja').hide();";
+    private static final String OPEN_MODAL_NUEVO_ADMINISTRADOR
+            = "PF('widgetvar-administrador').show();";
+    private static final String CLOSE_MODAL_NUEVO_ADMINISTRADOR
+            = "PF('widgetvar-administrador').hide();";
+    private static final String OPEN_MODAL_NUEVO_OPERATIVO
+            = "PF('widgetvar-operador').show();";
+    private static final String CLOSE_MODAL_NUEVO_OPERATIVO
+            = "PF('widgetvar-operador').hide();";
 
     @ManagedProperty("#{flujoCajaFacade}")
     private FlujoCajaFacade flujoCajaFacade;
@@ -47,9 +57,12 @@ public class FujoCajaController implements Serializable {
     private String body = "paginas/default.xhtml";
     private List<Producto> listaProductos;
     private List<Trabajador> listaTrabajadores;
-    private List<Cargo> listaCargos;
+    private List<Cargo> listaCargosAdministrativos;
+    private List<Cargo> listaCargosOperarios;
     private FlujoCaja[] fujoCajas;
     private Producto nuevoProducto;
+    private Administrativo nuevoAdministrativo;
+    private Operativo nuevoOperativo;
 
     @PostConstruct
     public void init() {
@@ -58,6 +71,8 @@ public class FujoCajaController implements Serializable {
         listaProductos = flujoCajaFacade.listaProductos();
         listaTrabajadores = flujoCajaFacade.listaTrabajadores();
         fujoCajas = new FlujoCaja[12];
+        listaCargosAdministrativos = flujoCajaFacade.cargosAdministrativos();
+        listaCargosOperarios = flujoCajaFacade.cargosOperativos();
     }
 
     public void openCostoMaterial() {
@@ -111,8 +126,26 @@ public class FujoCajaController implements Serializable {
         fujoCajas[10] = flujoNoviembre;
         FlujoCaja flujoDiciembre = new FlujoCaja(Mes.Diciembre, listaProductos, sueldoTotal);
         fujoCajas[11] = flujoDiciembre;
+//        fujoCajas[12] = calcularTotales();
 
         body = "paginas/flujoCaja.xhtml";
+    }
+
+    public FlujoCaja calcularTotales() {
+        FlujoCaja total = new FlujoCaja(Mes.Total);
+
+        for (int i = 0; i <= 11; i++) {
+            total.setSueldoBase(total.getSueldoBase() + fujoCajas[i].getSueldoBase());
+            total.setGrati(total.getGrati() + fujoCajas[i].getGrati());
+            total.setCts(total.getCts() + fujoCajas[i].getCts());
+            total.setListaProductos(listaProductos);
+            for (Producto producto : fujoCajas[i].getListaProductos()) {
+                //producto
+            }
+
+        }
+
+        return total;
     }
 
     public void onRowEdit(RowEditEvent event) {
@@ -158,6 +191,51 @@ public class FujoCajaController implements Serializable {
         }
     }
 
+    public void openNuevoAdministrativo() {
+        nuevoAdministrativo = new Administrativo(listaTrabajadores.size() + 1);
+        RequestContext
+                .getCurrentInstance()
+                .execute(OPEN_MODAL_NUEVO_ADMINISTRADOR);
+    }
+
+    public void closeNuevoAdministrativo() {
+        RequestContext
+                .getCurrentInstance()
+                .execute(CLOSE_MODAL_NUEVO_ADMINISTRADOR);
+    }
+
+    public void ingresarNuevoAdministrativo() {
+        LOGGER.info("TESTT");
+        if (!nuevoAdministrativo.getNombres().isEmpty()) {
+            listaTrabajadores.add(nuevoAdministrativo);
+            closeNuevoAdministrativo();
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Nombres no pueden ser vacio."));
+        }
+    }
+
+    public void openNuevoOperador() {
+        nuevoOperativo = new Operativo(listaTrabajadores.size() + 1);
+        RequestContext
+                .getCurrentInstance()
+                .execute(OPEN_MODAL_NUEVO_OPERATIVO);
+    }
+
+    public void closeNuevoOperador() {
+        RequestContext
+                .getCurrentInstance()
+                .execute(CLOSE_MODAL_NUEVO_OPERATIVO);
+    }
+
+    public void ingresarNuevoOperador() {
+        if (!nuevoOperativo.getNombres().isEmpty()) {
+            listaTrabajadores.add(nuevoAdministrativo);
+            closeNuevoOperador();
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Nombres no pueden ser vacio."));
+        }
+    }
+
     ////GETTER AND SETTER
     public String getNombre() {
         return nombre;
@@ -191,12 +269,20 @@ public class FujoCajaController implements Serializable {
         this.listaTrabajadores = listaTrabajadores;
     }
 
-    public List<Cargo> getListaCargos() {
-        return listaCargos;
+    public List<Cargo> getListaCargosAdministrativos() {
+        return listaCargosAdministrativos;
     }
 
-    public void setListaCargos(List<Cargo> listaCargos) {
-        this.listaCargos = listaCargos;
+    public void setListaCargosAdministrativos(List<Cargo> listaCargosAdministrativos) {
+        this.listaCargosAdministrativos = listaCargosAdministrativos;
+    }
+
+    public List<Cargo> getListaCargosOperarios() {
+        return listaCargosOperarios;
+    }
+
+    public void setListaCargosOperarios(List<Cargo> listaCargosOperarios) {
+        this.listaCargosOperarios = listaCargosOperarios;
     }
 
     public FlujoCaja[] getFujoCajas() {
@@ -221,6 +307,22 @@ public class FujoCajaController implements Serializable {
 
     public void setFlujoCajaFacade(FlujoCajaFacade flujoCajaFacade) {
         this.flujoCajaFacade = flujoCajaFacade;
+    }
+
+    public Administrativo getNuevoAdministrativo() {
+        return nuevoAdministrativo;
+    }
+
+    public void setNuevoAdministrativo(Administrativo nuevoAdministrativo) {
+        this.nuevoAdministrativo = nuevoAdministrativo;
+    }
+
+    public Operativo getNuevoOperativo() {
+        return nuevoOperativo;
+    }
+
+    public void setNuevoOperativo(Operativo nuevoOperativo) {
+        this.nuevoOperativo = nuevoOperativo;
     }
 
 }

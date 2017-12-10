@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"      
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                >
+    <p:dialog id="dialog-administrador" closeOnEscape="true"
+              widgetVar="widgetvar-administrador"
+              modal="true"
+              draggable="false"
+              position="top" responsive="true"
+              resizable="false" 
+              appendTo="@(body)"
+              header="Ingrese nuevo Administrador" width="450px"
+              >
+        <h:form id="form-administrador">
+            <div class="ui-g">
+                <div class="ui-g-6">
+                    <p:outputLabel for="input-nombres"
+                                   value="Nombres"/>
+                </div>
+                <div class="ui-g-6">
+                    <p:inputText id="input-nombres" 
+                                 value="#{fujoCajaController.nuevoAdministrativo.nombres}"/>
+                </div>
+                <div class="ui-g-6">
+                    <p:outputLabel for="input-apellidoPaterno"
+                                   value="Apellido Paterno"/>
+                </div>
+                <div class="ui-g-6">
+                    <p:inputText id="input-apellidoPaterno" 
+                                 value="#{fujoCajaController.nuevoAdministrativo.apellidoPaterno}"/>
+                </div>
+                <div class="ui-g-6">
+                    <p:outputLabel for="input-apellidoMaterno"
+                                   value="Apellido Materno"/>
+                </div>
+                <div class="ui-g-6">
+                    <p:inputText id="input-apellidoMaterno" 
+                                 value="#{fujoCajaController.nuevoAdministrativo.apellidoMaterno}"/>
+                </div>
+                <!--                <div class="ui-g-6">
+                                    <p:outputLabel for="input-cargo"
+                                                   value="Cargo"/>
+                                </div>-->
+<!--                <div class="ui-g-6">
+                    <p:selectOneMenu id="input-cargo"
+                                     style="width: 200px"
+                                     value="#{fujoCajaController.nuevoAdministrativo.cargo}">
+                        <f:selectItem itemLabel="Selecione un Cargo"  />
+                        <f:selectItems value="#{fujoCajaController.listaCargosAdministrativos}" />
+                    </p:selectOneMenu>
+                </div>-->
+            </div>
+            <div style="text-align: right">
+                <p:commandButton id="button-ingresarNuevoProducto"
+                                 value="Ingresar nuevo Adminitrador"
+                                 actionListener="#{fujoCajaController.ingresarNuevoAdministrativo()}"
+                                 update="grow-flujoCaja,
+                                 :form_FlujoCaja"
+                                 >
+                </p:commandButton>
+                <p:commandButton id="button-close_NuevaSilla" 
+                                 value="Salir"
+                                 actionListener="#{fujoCajaController.closeNuevoAdministrativo()}"
+                                 immediate="true"
+                                 update="grow-flujoCaja"
+                                 />
+            </div>          
+        </h:form>
+    </p:dialog>
+</ui:composition>
+

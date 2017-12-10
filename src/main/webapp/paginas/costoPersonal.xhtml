@@ -46,7 +46,14 @@
             <p:column headerText="Cargo">
                 <p:cellEditor>
                     <f:facet name="output"><h:outputText value="#{trabajador.cargo.nombre}" /></f:facet>
-                    <f:facet name="input"><p:inputText id="input-cargo" value="#{trabajador.cargo.nombre}" style="width:100%"/></f:facet>
+                    <f:facet name="input">
+                        <p:selectOneMenu id="input-cargo"
+                                         style="width: 200px"
+                                         value="#{trabajador.cargo.nombre}">
+                            <f:selectItem itemLabel="Selecione un Cargo"  />
+                            <f:selectItems value="#{fujoCajaController.listaCargosAdministrativos}" />
+                        </p:selectOneMenu>
+                    </f:facet>
                 </p:cellEditor>
             </p:column>
             <p:column headerText="Sueldo">
@@ -60,5 +67,21 @@
                 <p:rowEditor />
             </p:column>
         </p:dataTable>
-    </div>          
+    </div>
+    <div style="text-align: left">
+        <p:commandButton id="btn-agregarOperador" 
+                         value="Agregar Operador"
+                         actionListener="#{fujoCajaController.openNuevoOperador()}"
+                         icon="fa fa-edit" 
+                         update="grow-flujoCaja,
+                         form-operador"/>
+    </div>
+    <div style="text-align: right">
+        <p:commandButton id="btn-agregarAdministrativo" 
+                         value="Agregar Personal Administrativo"
+                         actionListener="#{fujoCajaController.openNuevoAdministrativo()}"
+                         icon="fa fa-edit" 
+                         update="grow-flujoCaja,
+                         form-administrador"/>
+    </div>
 </ui:composition>
