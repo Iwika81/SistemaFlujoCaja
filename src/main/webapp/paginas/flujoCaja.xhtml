@@ -7,10 +7,14 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:pe="http://primefaces.org/ui/extensions" >
     <h3 style="margin-top: 0">Flujo de Caja</h3>
+
     <p:dataGrid var="flujoCaja"
                 value="#{fujoCajaController.fujoCajas}" 
                 layout="grid" 
                 columns="12">
+        <f:facet name="header">
+            <h:outputText value="Mes" styleClass="leftAlign"/>
+        </f:facet>
         <div class="ui-g-12">
             <h:outputText value="#{flujoCaja.mes}" />
         </div>
